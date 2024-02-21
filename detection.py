@@ -2,10 +2,10 @@ from keras.models import model_from_json
 import cv2
 import numpy as np
 
-modelJson = open('modelVersion2.0.1.json', 'r').read()
+modelJson = open('modelVersion2.0.3.json', 'r').read()
 
 model = model_from_json(modelJson)
-model.load_weights('modelVersion2.0.1.h5')
+model.load_weights('modelVersion2.0.3.h5')
 
 def features(image):
     feature = np.array(image)
@@ -22,9 +22,12 @@ while True:
     cropframe = frame[40:300, 0:300]
     cropframe = cv2.resize(cropframe, (64,64))
     cropframe = features(cropframe)
+
+    frame = frame[40:300,0:300]
     pred = model.predict(cropframe)
     prediction_label = labels[pred.argmax()]
     cv2.rectangle(frame, (0, 0), (300, 40), (0, 165, 255), -1)
+
     if prediction_label == 'blank':
         cv2.putText(frame, " ", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
     else:

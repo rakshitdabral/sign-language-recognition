@@ -294,9 +294,9 @@ model.fit(
 
 #saving model
 modelJson = model.to_json()
-with open("modelVersion2.0.1.json",'w') as json_file:
+with open("modelVersion2.0.3.json",'w') as json_file:
     json_file.write(modelJson)
-model.save("modelVersion2.0.1.h5")
+model.save("modelVersion2.0.3.h5")
 
 
 #evaluating
