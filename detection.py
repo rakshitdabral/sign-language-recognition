@@ -9,7 +9,7 @@ model.load_weights('modelVersion2.0.1.h5')
 
 def features(image):
     feature = np.array(image)
-    feature = feature.reshape(1, 48, 48, 1)
+    feature = feature.reshape(1,image.shape[0],image.shape[1],3)
     return feature / 255.0
 
 cap = cv2.VideoCapture(0)
@@ -20,8 +20,7 @@ while True:
     _, frame = cap.read()
     cv2.rectangle(frame, (0, 40), (300, 300), (0, 165, 255), 1)
     cropframe = frame[40:300, 0:300]
-    cropframe = cv2.cvtColor(cropframe, cv2.COLOR_BGR2GRAY)
-    cropframe = cv2.resize(cropframe, (48, 48))
+    cropframe = cv2.resize(cropframe, (64,64))
     cropframe = features(cropframe)
     pred = model.predict(cropframe)
     prediction_label = labels[pred.argmax()]
