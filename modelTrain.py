@@ -192,6 +192,8 @@ def data_aug():
         target_size=targetSize,
         batch_size=batchSize,
         class_mode='categorical',
+        use_multiprocessing=True,
+        workers=6,
         # color_mode='grayscale',
         shuffle=False,
     )
@@ -281,22 +283,24 @@ checkpoint = ModelCheckpoint('best_weight.h5', save_best_only=True, monitor='val
 logdir = os.path.join("Logs")
 tensorboard_callback = TensorBoard(log_dir=logdir)
 
+
 # fitting model
 model.fit(
     train_generator,
     steps_per_epoch=train_generator.samples // batchSize,
-    epochs=10,
+    epochs=20,
     validation_data=validation_generator,
     verbose=2,
     validation_steps=validation_generator.samples // batchSize,
-    callbacks=[ earlyStop , reduceLearn , checkpoint],
+    callbacks=[ earlyStop , reduceLearn , checkpoint,tensorboard_callback],
 )
+
 
 #saving model
 modelJson = model.to_json()
-with open("modelVersion2.0.3.json",'w') as json_file:
+with open("previousTrainedModel/99/modelVersion2.0.4.json", 'w') as json_file:
     json_file.write(modelJson)
-model.save("modelVersion2.0.3.h5")
+model.save("modelVersion2.0.4.h5")
 
 
 #evaluating

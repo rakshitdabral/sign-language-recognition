@@ -2,10 +2,10 @@ from keras.models import model_from_json
 import cv2
 import numpy as np
 
-modelJson = open('modelVersion2.0.3.json', 'r').read()
+modelJson = open('previousTrainedModel/99/modelVersion2.0.4.json', 'r').read()
 
 model = model_from_json(modelJson)
-model.load_weights('modelVersion2.0.3.h5')
+model.load_weights('modelVersion2.0.4.h5')
 
 def features(image):
     feature = np.array(image)
