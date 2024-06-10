@@ -1,4 +1,4 @@
-# Project Title
+# Sign Language Recognition
 
 This Project aims to recognize sign language gestures using a Convolutional Neural Network (CNN) architecture, specifically the VGG16 model, implemented in Python. It leverages transfer learning to extract valuable features from the pre-trained VGG16 model, fine-tuned for sign language recognition
 
